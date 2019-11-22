@@ -9,6 +9,7 @@ import com.khnu.yakymchuk.model.Order;
 import com.khnu.yakymchuk.model.Table;
 import com.khnu.yakymchuk.service.IOrderService;
 import com.khnu.yakymchuk.service.ITableService;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +29,9 @@ public class TableService implements ITableService {
     }
 
     @Override
-    public void deleteOrder(String tableId, Order order) {
-        LOG.info("Method starts with parameters : tableId = {} , order = {}", tableId, order);
-        tableDao.deleteOrder(tableId, order);
+    public void deleteOrder(Order order) {
+        Assert.asserNotNull(order, "Order cannot be null");
+        tableDao.deleteOrder(order);
     }
 
     @Override
@@ -46,7 +47,11 @@ public class TableService implements ITableService {
     }
 
     @Override
-    public void makeOrder(String tableID, List<Dish> list, String displayName) {
+    public void makeOrder(String tableID, List<Dish> list, String displayName, String waiterId) {
+        Assert.asserHasText(tableID, "table id cannot be null or empty");
+        Assert.asserHasText(displayName, "display name cannot be null or empty");
+        Assert.asserHasText(waiterId, "waiter id cannot be null or empty");
+
         Table table = getTableById(tableID);
         LOG.info("Get the table by ID : {}", table);
         if (table == null) {
@@ -54,7 +59,7 @@ public class TableService implements ITableService {
         } else {
             String id = UUID.randomUUID().toString();
             int count = table.getOrdersCount();
-            Order order = Order.openOrder(id, list, tableID, "Order№" + (++count));
+            Order order = Order.openOrder(id, list, tableID, "Order№" + (++count), waiterId);
 
             table.addOrder(order);
             orderService.addOrder(order);
@@ -64,12 +69,15 @@ public class TableService implements ITableService {
 
     @Override
     public void makeDiscountForWholeTable(String tableID, int percent) {
-        LOG.info("Make discount for table with parameters: tableID = {},percent = {}", tableID, percent);
+        Assert.asserHasText(tableID, "table id cannot be null or epmty");
+
         tableDao.makeDiscountForWholeTable(tableID, percent);
     }
 
     @Override
     public void makePaymentForAllTable(String idTable) {
+        Assert.asserHasText(idTable, "table id cannot be null or empty");
+
         LOG.info("Making payment fro all table with parameters : table id = {}", idTable);
         Table table = tableDao.findTableById(idTable);
         if (table == null) {
@@ -78,7 +86,7 @@ public class TableService implements ITableService {
         List<Order> orders = table.getOrders();
         for (Order order : orders) {
             orderService.addToDailyOrders(order);
-            tableDao.deleteOrder(idTable, order);
+            tableDao.deleteOrder(order);
         }
     }
 
@@ -94,7 +102,6 @@ public class TableService implements ITableService {
     public List<Table> getActiveTables() {
         return tableDao.getActiveTables();
     }
-
 
     @Override
     public List<Table> getAllTables() {

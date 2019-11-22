@@ -65,7 +65,5 @@ public class ExceptionHandler implements IExceptionHandler {
             LOG.error("Cannot find user with such token !! " + throwable.getMessage());
             throw new UserReadableException("Incorrect token! Try one more time .");
         }
-
     }
-
 }

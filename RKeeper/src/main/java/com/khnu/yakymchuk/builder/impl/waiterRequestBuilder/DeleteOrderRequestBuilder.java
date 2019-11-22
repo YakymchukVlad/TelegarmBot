@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 
 public class DeleteOrderRequestBuilder implements IRequestBuilder<DeleteRequest> {
 
-    private Logger LOG = LoggerFactory.getLogger(DeleteOrderRequestBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteOrderRequestBuilder.class);
+
     private ITableService tableService;
 
     public DeleteOrderRequestBuilder(ITableService tableService) {
@@ -43,14 +44,10 @@ public class DeleteOrderRequestBuilder implements IRequestBuilder<DeleteRequest>
 
     @Override
     public List<String> getMenuParameters(String message) {
-        switch (message) {
-            case "do": {
-                return tableService.getActiveTables().stream().map(Table::getNumber).collect(Collectors.toList());
-            }
-            default: {
-                return tableService.getTableById(message.split(" ")[1]).getOrders().stream().map(Order::getDisplayName).collect(Collectors.toList());
-            }
+        if ("do".equals(message)) {
+            return tableService.getActiveTables().stream().map(Table::getNumber).collect(Collectors.toList());
         }
+        return tableService.getTableById(message.split(" ")[1]).getOrders().stream().map(Order::getDisplayName).collect(Collectors.toList());
     }
 
     @Override

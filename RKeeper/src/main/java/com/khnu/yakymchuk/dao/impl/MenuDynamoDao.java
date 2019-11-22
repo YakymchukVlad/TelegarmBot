@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.khnu.yakymchuk.dao.IMenuDao;
 import com.khnu.yakymchuk.dao.BaseDao;
 import com.khnu.yakymchuk.model.Dish;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,6 @@ public class MenuDynamoDao extends BaseDao<Dish> implements IMenuDao {
     public MenuDynamoDao(AmazonDynamoDB amazonDynamoDB, DynamoDBMapper dynamoDBMapper) {
         super(amazonDynamoDB);
         this.dynamoDBMapper = dynamoDBMapper;
-        //createTable("Dishes", "id", ScalarAttributeType.S);
     }
 
     @Override
@@ -28,6 +28,8 @@ public class MenuDynamoDao extends BaseDao<Dish> implements IMenuDao {
 
     @Override
     public Dish getDishById(String id) {
+        Assert.asserHasText(id, "Id cannot be null");
+
         Dish dish = new Dish();
         dish.setId(id);
         return dynamoDBMapper.load(dish);
@@ -40,6 +42,8 @@ public class MenuDynamoDao extends BaseDao<Dish> implements IMenuDao {
 
     @Override
     public Dish getDishByName(String name) {
+        Assert.asserHasText(name, "Name cannot be null");
+
         Dish dish = new Dish();
         dish.setName(name);
 

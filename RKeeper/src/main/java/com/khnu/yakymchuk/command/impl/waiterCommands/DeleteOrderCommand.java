@@ -1,6 +1,7 @@
 package com.khnu.yakymchuk.command.impl.waiterCommands;
 
 import com.khnu.yakymchuk.command.IActionCommand;
+import com.khnu.yakymchuk.constant.RkeperConstants;
 import com.khnu.yakymchuk.model.Order;
 import com.khnu.yakymchuk.request.impl.waiterRequest.DeleteRequest;
 import com.khnu.yakymchuk.service.IOrderService;
@@ -25,10 +26,12 @@ public class DeleteOrderCommand implements IActionCommand<DeleteRequest> {
         String tableId = request.getTableId();
         String displayName = request.getDisplayName();
         Order order = tableService.getOrderByDisplayName(tableId, displayName);
+
         tableService.deleteOrder(tableId, order);
         orderService.deleteOrder(order);
+
         LOG.info("Delete order with parameters {},{}", tableId, order);
-        return "The order from table № " + tableId + " deleted";
+        return String.format(RkeperConstants.DELETE_ORDER_RESULT, tableId);
     }
 
 }

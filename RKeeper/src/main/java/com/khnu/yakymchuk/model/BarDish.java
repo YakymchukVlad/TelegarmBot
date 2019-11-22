@@ -11,11 +11,10 @@ public class BarDish extends Dish {
     private boolean withAlcohol;
 
     public BarDish() {
-
     }
 
     public BarDish(String id, String name, BigDecimal cost, boolean withAlcohol) {
-        super(id, name, cost, DishType.bar);
+        super(id, name, cost, DishType.BAR);
         this.withAlcohol = withAlcohol;
     }
 
@@ -29,12 +28,12 @@ public class BarDish extends Dish {
 
     @Override
     public String toString() {
-        return "BarDish " +
-                "\n dish № : " + id +
-                "\n Dish name : " + name +
-                "\n With alcohol : " + withAlcohol +
-                "\n Cost : " + cost +
-                "\n";
+        return "BarDish{" +
+                "withAlcohol=" + withAlcohol +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", dishType=" + dishType +
+                '}';
     }
-
 }

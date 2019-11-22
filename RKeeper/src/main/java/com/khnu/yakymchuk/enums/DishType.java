@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 
 public enum DishType {
 
-    kitchen(KitchenDish::new),
-    bar(BarDish::new);
+    KITCHEN(KitchenDish::new),
+    BAR(BarDish::new);
 
     private Supplier<? extends Dish> entitySupplier;
 

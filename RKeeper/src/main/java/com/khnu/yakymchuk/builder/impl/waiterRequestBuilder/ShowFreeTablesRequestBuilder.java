@@ -10,7 +10,6 @@ import java.util.List;
 public class ShowFreeTablesRequestBuilder implements IRequestBuilder {
 
     public ShowFreeTablesRequestBuilder() {
-
     }
 
     @Override

@@ -104,14 +104,6 @@ public class Table {
     }
 
     @Override
-    public String toString() {
-        return "Table : " +
-                "\n Table № : " + number +
-                "\n OrdersCount : " + ordersCount +
-                "\n";
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Table)) {
             return false;
@@ -120,4 +112,13 @@ public class Table {
         return table.getNumber().equals(this.getNumber());
     }
 
+    @Override
+    public String toString() {
+        return "Table{" +
+                "number='" + number + '\'' +
+                ", taken=" + taken +
+                ", orders=" + orders +
+                ", ordersCount=" + ordersCount +
+                '}';
+    }
 }

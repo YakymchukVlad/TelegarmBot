@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.khnu.yakymchuk.dao.BaseDao;
 import com.khnu.yakymchuk.dao.ITokenDao;
 import com.khnu.yakymchuk.model.Token;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,18 +21,22 @@ public class TokenDynamoDao extends BaseDao<Token> implements ITokenDao {
     }
 
     @Override
-    public void addToken(String token) {
-        LOG.info("Add new token with number : " + token);
+    public void addToken(String tokenNumber) {
+        Assert.asserHasText(tokenNumber, "Token number cannot be null or empty");
+
+        LOG.info("Add new token with number : " + tokenNumber);
         Token t = new Token();
-        t.setToken(token);
+        t.setToken(tokenNumber);
         dynamoDBMapper.save(t);
     }
 
     @Override
-    public Token getTokenAndDelete(String tokenName) {
-        LOG.info("Load token by number : " + tokenName);
+    public Token getTokenAndDelete(String tokenNumber) {
+        Assert.asserHasText(tokenNumber, "Token cannot be null or empty");
+
+        LOG.info("Load token by number : " + tokenNumber);
         Token token = new Token();
-        token.setToken(tokenName);
+        token.setToken(tokenNumber);
         try {
             return dynamoDBMapper.load(token);
         } finally {

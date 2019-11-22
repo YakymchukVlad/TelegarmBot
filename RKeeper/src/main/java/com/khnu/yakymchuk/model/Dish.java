@@ -105,13 +105,11 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish " +
-                "\n id : " + id +
-                "\n name : " + name +
-                "\n cost : " + cost +
-                "\n dishType : " + dishType +
-                "\n";
+        return "Dish{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", dishType=" + dishType +
+                '}';
     }
-
-
 }

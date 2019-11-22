@@ -3,40 +3,42 @@ package com.khnu.yakymchuk.service.impl;
 import com.khnu.yakymchuk.dao.IOrderDao;
 import com.khnu.yakymchuk.model.Order;
 import com.khnu.yakymchuk.service.IOrderService;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 
 import java.util.List;
 
 public class OrderService implements IOrderService {
 
-    private IOrderDao orderDAO;
+    private IOrderDao orderDao;
 
     public OrderService(IOrderDao orderDAO) {
-        this.orderDAO = orderDAO;
+        this.orderDao = orderDAO;
     }
 
     @Override
     public List<Order> getDailyOrders() {
-        return orderDAO.getDailyOrders();
+        return orderDao.getDailyOrders();
     }
 
     public List<Order> getActiveOrders() {
-        return orderDAO.getActiveOrders();
+        return orderDao.getActiveOrders();
     }
 
     @Override
     public void deleteOrder(Order order) {
-        orderDAO.deleteOrder(order);
+        Assert.asserNotNull(orderDao, "Order cannot be null");
+        orderDao.deleteOrder(order);
     }
 
     @Override
     public void addToDailyOrders(Order order) {
-        assert order != null;
-        orderDAO.addToDailyOrders(order);
+        Assert.asserNotNull(orderDao, "Order cannot be null");
+        orderDao.addToDailyOrders(order);
     }
 
     public void addOrder(Order order) {
-        assert order != null;
-        orderDAO.addActiveOrder(order);
+        Assert.asserNotNull(orderDao, "Order cannot be null");
+        orderDao.addActiveOrder(order);
     }
 
 }

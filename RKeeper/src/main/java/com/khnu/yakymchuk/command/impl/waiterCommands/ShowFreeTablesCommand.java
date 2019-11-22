@@ -32,5 +32,4 @@ public class ShowFreeTablesCommand implements IActionCommand {
                     collect(Collectors.joining("\n"));
         }
     }
-
 }

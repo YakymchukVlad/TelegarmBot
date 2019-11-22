@@ -23,11 +23,11 @@ public class MakeOrderCommand implements IActionCommand<OrderRequest> {
         String tableID = request.getTableId();
         List<Dish> dishes = request.getDishList();
         String displayName = request.getDisplayName();
-        tableService.makeOrder(tableID, dishes, displayName);
+        String waiterId = request.getWaiterId();
+
+        tableService.makeOrder(tableID, dishes, displayName, waiterId);
 
         LOG.debug("Make order with parameters {},{}", tableID, dishes);
         return "You made order for table № : " + tableID;
     }
-
-
 }

@@ -13,17 +13,10 @@ public class Token {
     @DynamoDBHashKey(attributeName = "tu")
     private String token;
 
-//    @JsonProperty(value = "ttl")
-//    @DynamoDBAttribute(attributeName = "ttl")
-//    private long timeToLive;
+    public Token() { }
 
-    public Token() {
-
-    }
-
-    public Token(String tokenNumber, long timeToLive) {
+    public Token(String tokenNumber) {
         this.token = tokenNumber;
-        ///   this.timeToLive = timeToLive;
     }
 
     public String getToken() {
@@ -34,19 +27,10 @@ public class Token {
         this.token = token;
     }
 
-//    public long getTimeToLive() {
-//        return timeToLive;
-//    }
-//
-//    public void setTimeToLive(long timeToLive) {
-//        this.timeToLive = timeToLive;
-//    }
-
     @Override
     public String toString() {
         return "Token{" +
-                "token='" + token + '\'';
-//                ", timeToLive=" + timeToLive +
-//                '}';
+                "token='" + token + '\'' +
+                '}';
     }
 }

@@ -14,8 +14,9 @@ import java.util.stream.Collectors;
 
 public class MakeDiscountRequestBuilder implements IRequestBuilder<DiscountRequest> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MakeDiscountRequestBuilder.class);
+
     private ITableService tableService;
-    private Logger LOG = LoggerFactory.getLogger(MakeDiscountRequestBuilder.class);
 
     public MakeDiscountRequestBuilder(ITableService tableService) {
         this.tableService = tableService;
@@ -40,14 +41,10 @@ public class MakeDiscountRequestBuilder implements IRequestBuilder<DiscountReque
 
     @Override
     public List<String> getMenuParameters(String message) {
-        switch (message) {
-            case "md": {
-                return tableService.getActiveTables().stream().map(Table::getNumber).collect(Collectors.toList());
-            }
-            default: {
-                return Arrays.asList("5", "10", "30", "50");
-            }
+        if ("md".equals(message)) {
+            return tableService.getActiveTables().stream().map(Table::getNumber).collect(Collectors.toList());
         }
+        return Arrays.asList("5", "10", "30", "50");
     }
 
     @Override

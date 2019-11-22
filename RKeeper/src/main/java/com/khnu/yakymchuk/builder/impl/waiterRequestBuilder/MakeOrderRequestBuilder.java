@@ -6,6 +6,7 @@ import com.khnu.yakymchuk.model.Table;
 import com.khnu.yakymchuk.request.impl.waiterRequest.OrderRequest;
 import com.khnu.yakymchuk.service.IMenuService;
 import com.khnu.yakymchuk.service.ITableService;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -16,9 +17,10 @@ import java.util.stream.Collectors;
 
 public class MakeOrderRequestBuilder implements IRequestBuilder<OrderRequest> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MakeOrderRequestBuilder.class);
+
     private ITableService tableService;
     private IMenuService menuService;
-    private Logger LOG = LoggerFactory.getLogger(MakeOrderRequestBuilder.class);
 
     public MakeOrderRequestBuilder(IMenuService menuService, ITableService tableService) {
         this.menuService = menuService;
@@ -48,8 +50,9 @@ public class MakeOrderRequestBuilder implements IRequestBuilder<OrderRequest> {
     }
 
     private void addDishesToOrder(List<Dish> dishes, String name) {
+        Assert.asserHasText(name, "name cannot be null or empty");
         for (Dish dish : menuService.getMenu()) {
-            if (dish.getName().equals(name)) {
+            if (name.equals(dish.getName())) {
                 dishes.add(dish);
             }
         }
@@ -57,19 +60,16 @@ public class MakeOrderRequestBuilder implements IRequestBuilder<OrderRequest> {
 
     @Override
     public List<String> getMenuParameters(String message) {
-        switch (message) {
-            case "mo": {
-                return tableService.getAllTables().stream().map(Table::getNumber).collect(Collectors.toList());
-            }
-            default: {
-                return menuService.getMenu().stream().map(Dish::getName).collect(Collectors.toList());
-            }
+        if ("mo".equals(message)) {
+            return tableService.getAllTables().stream().map(Table::getNumber).collect(Collectors.toList());
         }
+        return menuService.getMenu().stream().map(Dish::getName).collect(Collectors.toList());
     }
 
     @Override
     public String getInstructionsToUser(Update update) {
-        LOG.info(update.getCallbackQuery().getData());
+        Assert.asserNotNull(update, "update data cannot be null");
+
         switch (update.getCallbackQuery().getData().split(" ").length) {
             case 1: {
                 return "Choose the table number";

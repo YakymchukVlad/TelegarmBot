@@ -8,28 +8,23 @@ import java.util.List;
 
 public interface ITableService {
 
-    void deleteOrder(String tableID, Order order);
+    void deleteOrder(Order order);
 
-    Table getTableById(String id);
-
-    Order getOrderByDisplayName(String tableId, String displayName);
-
-    void makeOrder(String tableNumber, List<Dish> dishList, String displayName);
-
-//    void makeDiscountForCurrentOrder(String tableId, String displayName, int perc);
-
-//    void makePayment(String tableID, String displayName);
+    void makeOrder(String tableNumber, List<Dish> dishList, String displayName, String waiterId);
 
     void makePaymentForAllTable(String idTable);
 
     void makeDiscountForWholeTable(String tableID, int percent);
+
+    void addTable(Table table);
+
+    Table getTableById(String id);
+
+    Order getOrderByDisplayName(String tableId, String displayName);
 
     List<Table> getFreeTables();
 
     List<Table> getActiveTables();
 
     List<Table> getAllTables();
-
-    void addTable(Table table);
-
 }

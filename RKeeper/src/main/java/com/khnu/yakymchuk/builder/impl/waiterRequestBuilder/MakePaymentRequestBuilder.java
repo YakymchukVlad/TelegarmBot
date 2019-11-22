@@ -30,7 +30,6 @@ public class MakePaymentRequestBuilder implements IRequestBuilder<PaymentRequest
         String[] paramMass = message.split(" ");
         String tableId = paramMass[1];
         orderRequest.setTableId(tableId);
-        LOG.debug("Construct request with parameters {}", tableId);
 
         return orderRequest;
     }
@@ -42,14 +41,10 @@ public class MakePaymentRequestBuilder implements IRequestBuilder<PaymentRequest
 
     @Override
     public String getInstructionsToUser(Update update) {
-        switch (update.getCallbackQuery().getData().split(" ").length) {
-            case 1: {
-                return "Choose the table number";
-            }
-            default: {
-                return "Press finish to make payment";
-            }
+        if (update.getCallbackQuery().getData().split(" ").length == 1) {
+            return "Choose the table number";
         }
+        return "Press finish to make payment";
     }
 
 }

@@ -9,7 +9,7 @@ public interface ITableDao {
 
     void addActiveTable(Table table);
 
-    void deleteOrder(String tableID, Order order);
+    void deleteOrder(Order order);
 
     Table findTableById(String id);
 

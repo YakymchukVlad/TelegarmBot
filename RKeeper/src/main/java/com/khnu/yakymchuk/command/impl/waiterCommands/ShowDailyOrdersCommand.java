@@ -32,5 +32,4 @@ public class ShowDailyOrdersCommand implements IActionCommand {
                     collect(Collectors.joining("\n"));
         }
     }
-
 }

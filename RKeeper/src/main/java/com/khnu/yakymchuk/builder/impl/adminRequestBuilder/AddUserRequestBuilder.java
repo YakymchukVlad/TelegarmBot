@@ -58,5 +58,4 @@ public class AddUserRequestBuilder implements IRequestBuilder<UserRequest> {
             }
         }
     }
-
 }

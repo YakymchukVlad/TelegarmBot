@@ -9,8 +9,9 @@ public class OrderRequest implements IRequest {
 
     private String tableId;
     private String orderId;
-    private List<Dish> dishList;
     private String displayName;
+    private String waiterId;
+    private List<Dish> dishList;
 
     public String getTableId() {
         return tableId;
@@ -42,5 +43,24 @@ public class OrderRequest implements IRequest {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getWaiterId() {
+        return waiterId;
+    }
+
+    public void setWaiterId(String waiterId) {
+        this.waiterId = waiterId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderRequest{" +
+                "tableId='" + tableId + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", dishList=" + dishList +
+                ", displayName='" + displayName + '\'' +
+                ", waiterId='" + waiterId + '\'' +
+                '}';
     }
 }

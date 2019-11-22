@@ -1,6 +1,7 @@
 package com.khnu.yakymchuk.command.impl.waiterCommands;
 
 import com.khnu.yakymchuk.command.IActionCommand;
+import com.khnu.yakymchuk.constant.RkeperConstants;
 import com.khnu.yakymchuk.request.impl.waiterRequest.PaymentRequest;
 import com.khnu.yakymchuk.service.ITableService;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class MakePaymentCommand implements IActionCommand<PaymentRequest> {
         tableService.makePaymentForAllTable(tableId);
         LOG.info("Make payment for the whole table with parameter tableID : {}", tableId);
 
-        return "You made payment for table № : " + tableId;
+        return String.format(RkeperConstants.MAKE_ORDER_RESULT, tableId);
     }
 
 }

@@ -10,7 +10,6 @@ import java.util.List;
 public class ShowDailyOrdersRequestBuilder implements IRequestBuilder {
 
     public ShowDailyOrdersRequestBuilder() {
-
     }
 
     @Override

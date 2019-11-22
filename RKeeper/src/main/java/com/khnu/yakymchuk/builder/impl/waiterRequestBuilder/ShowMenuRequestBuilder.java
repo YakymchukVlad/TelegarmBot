@@ -10,7 +10,6 @@ import java.util.List;
 public class ShowMenuRequestBuilder implements IRequestBuilder {
 
     public ShowMenuRequestBuilder() {
-
     }
 
     @Override

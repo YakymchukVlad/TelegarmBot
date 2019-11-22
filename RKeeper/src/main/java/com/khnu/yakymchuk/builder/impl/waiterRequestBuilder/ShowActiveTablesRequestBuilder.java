@@ -10,14 +10,12 @@ import java.util.List;
 public class ShowActiveTablesRequestBuilder implements IRequestBuilder {
 
     public ShowActiveTablesRequestBuilder() {
-
     }
 
     @Override
     public IRequest getRequest(String message) {
         return new EmptyRequest();
     }
-
 
     @Override
     public List<String> getMenuParameters(String message) {

@@ -32,5 +32,4 @@ public class ShowActiveTablesCommand implements IActionCommand {
                     collect(Collectors.joining("\n"));
         }
     }
-
 }

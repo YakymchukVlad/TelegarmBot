@@ -47,14 +47,10 @@ public class DeleteUserRequestBuilder implements IRequestBuilder<UserRequest> {
 
     @Override
     public String getInstructionsToUser(Update update) {
-        switch (update.getCallbackQuery().getData().split(" ").length) {
-            case 1: {
-                return "Choose the user token";
-            }
-            default: {
-                return "Press finish to delete user";
-            }
+        if (update.getCallbackQuery().getData().split(" ").length == 1) {
+            return "Choose the user token";
         }
+        return "Press finish to delete user";
     }
 
 }

@@ -4,42 +4,46 @@ import com.khnu.yakymchuk.dao.IMenuDao;
 import com.khnu.yakymchuk.exception.DishNotFoundException;
 import com.khnu.yakymchuk.model.Dish;
 import com.khnu.yakymchuk.service.IMenuService;
+import com.khnu.yakymchuk.utils.assertion.Assert;
 
 import java.util.List;
 
 public class MenuService implements IMenuService {
 
-    private IMenuDao menuDAO;
+    private IMenuDao menuDao;
 
     public MenuService(IMenuDao menuDAO) {
-        this.menuDAO = menuDAO;
+        this.menuDao = menuDAO;
     }
 
     @Override
     public List<Dish> getMenu() {
-        return menuDAO.getMenu();
+        return menuDao.getMenu();
     }
 
     @Override
     public Dish getDishById(String id) {
-        if (menuDAO.getDishById(id) == null) {
-            throw new DishNotFoundException("Cannot find dish with number " + id);
+        Assert.asserHasText(id, "id cannot be null or empty");
+
+        if (menuDao.getDishById(id) == null) {
+            throw new DishNotFoundException(String.format("Cannot find dish with number %s", id));
         }
-        return menuDAO.getDishById(id);
+        return menuDao.getDishById(id);
     }
 
     @Override
     public Dish getDishByName(String name) {
-        if (menuDAO.getDishByName(name) == null) {
-            throw new DishNotFoundException("Cannot find dish with name " + name);
+        Assert.asserHasText(name, "name cannot be null or empty");
+
+        if (menuDao.getDishByName(name) == null) {
+            throw new DishNotFoundException(String.format("Cannot find dish with name %s", name));
         }
-        return menuDAO.getDishByName(name);
+        return menuDao.getDishByName(name);
     }
 
     @Override
     public void addDish(Dish dish) {
-        assert dish != null;
-        menuDAO.addDish(dish);
+        Assert.asserNotNull(dish, "Dish cannot be null");
+        menuDao.addDish(dish);
     }
-
 }

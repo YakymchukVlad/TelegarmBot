@@ -31,4 +31,13 @@ public class UserRequest implements IRequest {
     public void setUserLastName(String userLastName) {
         this.userLastName = userLastName;
     }
+
+    @Override
+    public String toString() {
+        return "UserRequest{" +
+                "userName='" + userName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
+                ", telegramUserId='" + telegramUserId + '\'' +
+                '}';
+    }
 }
