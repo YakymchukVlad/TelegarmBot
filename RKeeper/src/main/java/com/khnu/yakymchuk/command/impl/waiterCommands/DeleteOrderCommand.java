@@ -27,7 +27,7 @@ public class DeleteOrderCommand implements IActionCommand<DeleteRequest> {
         String displayName = request.getDisplayName();
         Order order = tableService.getOrderByDisplayName(tableId, displayName);
 
-        tableService.deleteOrder(tableId, order);
+        tableService.deleteOrder(order);
         orderService.deleteOrder(order);
 
         LOG.info("Delete order with parameters {},{}", tableId, order);
