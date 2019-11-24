@@ -12,6 +12,7 @@ import com.khnu.yakymchuk.builder.impl.waiterRequestBuilder.ShowActiveTablesRequ
 import com.khnu.yakymchuk.builder.impl.waiterRequestBuilder.ShowDailyOrdersRequestBuilder;
 import com.khnu.yakymchuk.builder.impl.waiterRequestBuilder.ShowFreeTablesRequestBuilder;
 import com.khnu.yakymchuk.builder.impl.waiterRequestBuilder.ShowMenuRequestBuilder;
+import com.khnu.yakymchuk.constant.RkeperConstants;
 import com.khnu.yakymchuk.service.IMenuService;
 import com.khnu.yakymchuk.service.ITableService;
 import com.khnu.yakymchuk.service.IUserService;
@@ -28,7 +29,7 @@ import javax.inject.Singleton;
 public class BuilderProvider {
 
     @IntoMap
-    @StringKey("Show menu")
+    @StringKey(RkeperConstants.SHOW_MENU_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder showMenuRequestBuilder() {
@@ -36,7 +37,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Show active tables")
+    @StringKey(RkeperConstants.SHOW_ACTIVE_TABLES_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder showActiveTablesRequestBuilder() {
@@ -44,7 +45,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Show free tables")
+    @StringKey(RkeperConstants.SHOW_FREE_TABLES_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder showFreeTablesRequestBuilder() {
@@ -52,7 +53,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Show active orders")
+    @StringKey(RkeperConstants.SHOW_ACTIVE_ORDERS_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder ShowActiveOrdersRequestBuilder() {
@@ -60,7 +61,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Make order")
+    @StringKey(RkeperConstants.MAKE_ORDER_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder makeOrderRequestBuilder(IMenuService menuService, ITableService tableService) {
@@ -68,7 +69,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Delete order")
+    @StringKey(RkeperConstants.DELETE_ORDER_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder deleteOrderRequestBuilder(ITableService tableService) {
@@ -76,7 +77,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Make payment")
+    @StringKey(RkeperConstants.MAKE_PAYMENT_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder makePaymentRequestBuilder(ITableService tableService) {
@@ -84,7 +85,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Show daily orders")
+    @StringKey(RkeperConstants.SHOW_DAILY_ORDERS_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder showDailyOrdersBuilder() {
@@ -92,7 +93,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("Make discount")
+    @StringKey(RkeperConstants.MAKE_DISCOUNT_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder makeDiscountRequestBuilder(ITableService tableService) {
@@ -100,7 +101,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("AddUser")
+    @StringKey(RkeperConstants.ADD_USER_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder addUserRequestBuilder() {
@@ -108,7 +109,7 @@ public class BuilderProvider {
     }
 
     @IntoMap
-    @StringKey("DeleteUser")
+    @StringKey(RkeperConstants.DELETE_USER_COMMAND_NAME)
     @Provides
     @Singleton
     IRequestBuilder deleteUserRequestBuilder(IUserService userService) {

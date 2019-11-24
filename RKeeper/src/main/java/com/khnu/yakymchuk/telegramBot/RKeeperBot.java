@@ -101,7 +101,9 @@ public class RKeeperBot extends TelegramLongPollingBot {
             SendMessage sendMessage;
             User user = checkUser(update);
             userService.addUser(user);
-            sendMessage = new SendMessage(update.getMessage().getChatId(), "You are authorized as " + user.getName() + " " + user.getLastName());
+            String authorizationMessage = user.getLastName() == null ? "You are authorized as " + user.getName() : "You are authorized as " + user.getName() + " " + user.getLastName();
+
+            sendMessage = new SendMessage(update.getMessage().getChatId(), authorizationMessage);
             sendMessage.setReplyMarkup(BotUtils.buildMainMenuInlineKeyboardForWaiter());
             execute(sendMessage);
         } catch (UserNotFoundException e) {
@@ -114,14 +116,14 @@ public class RKeeperBot extends TelegramLongPollingBot {
     private User checkUser(Update update) {
         User user;
         String tokenName = update.getMessage().getText();
-        LOG.info("Try to find token {}", tokenName);
         if (tokenService.getTokenAndDelete(tokenName) != null) {
             String name = update.getMessage().getFrom().getFirstName();
             String lastName = update.getMessage().getFrom().getLastName();
             String userId = String.valueOf(update.getMessage().getFrom().getId());
             user = new User(name, lastName, userId, "Waiter");
-        } else throw new UserNotFoundException("There is no such token!");
-        return user;
+            return user;
+        }
+        throw new UserNotFoundException("There is no such token!");
     }
 
     /**
