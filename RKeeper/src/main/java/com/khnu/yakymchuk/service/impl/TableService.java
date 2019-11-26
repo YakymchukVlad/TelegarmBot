@@ -30,7 +30,6 @@ public class TableService implements ITableService {
 
     @Override
     public void deleteOrder(Order order) {
-        Assert.asserNotNull(order, "Order cannot be null");
         tableDao.deleteOrder(order);
     }
 
@@ -48,10 +47,6 @@ public class TableService implements ITableService {
 
     @Override
     public void makeOrder(String tableID, List<Dish> list, String displayName, String waiterId) {
-        Assert.asserHasText(tableID, "table id cannot be null or empty");
-        Assert.asserHasText(displayName, "display name cannot be null or empty");
-        Assert.asserHasText(waiterId, "waiter id cannot be null or empty");
-
         Table table = getTableById(tableID);
         LOG.info("Get the table by ID : {}", table);
         if (table == null) {
@@ -76,8 +71,6 @@ public class TableService implements ITableService {
 
     @Override
     public void makePaymentForAllTable(String idTable) {
-        Assert.asserHasText(idTable, "table id cannot be null or empty");
-
         LOG.info("Making payment fro all table with parameters : table id = {}", idTable);
         Table table = tableDao.findTableById(idTable);
         if (table == null) {
