@@ -1,6 +1,7 @@
 package com.khnu.yakymchuk.command.impl.waiterCommands;
 
 import com.khnu.yakymchuk.command.IActionCommand;
+import com.khnu.yakymchuk.exception.TableNotFoundException;
 import com.khnu.yakymchuk.request.impl.waiterRequest.DiscountRequest;
 import com.khnu.yakymchuk.service.ITableService;
 import org.slf4j.Logger;
@@ -20,10 +21,13 @@ public class MakeDiscountCommand implements IActionCommand<DiscountRequest> {
     public String execute(DiscountRequest request) {
         String tableId = request.getTableId();
         int percent = request.getPercent();
-        tableService.makeDiscountForWholeTable(tableId, percent);
-        LOG.debug("Make discount for order of table № {}, {} %", tableId, percent);
-
-        return "You made discount for table №: " + tableId + " for " + percent + " % ";
+        try {
+            tableService.makeDiscountForWholeTable(tableId, percent);
+            LOG.debug("Make discount for order of table № {}, {} %", tableId, percent);
+            return "You made discount for table №: " + tableId + " for " + percent + " % ";
+        }catch (TableNotFoundException e){
+            return e.getMessage();
+        }
     }
 
 }

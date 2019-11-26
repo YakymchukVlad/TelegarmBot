@@ -1,6 +1,7 @@
 package com.khnu.yakymchuk.command.impl.waiterCommands;
 
 import com.khnu.yakymchuk.command.IActionCommand;
+import com.khnu.yakymchuk.exception.TableNotFoundException;
 import com.khnu.yakymchuk.model.Dish;
 import com.khnu.yakymchuk.request.impl.waiterRequest.OrderRequest;
 import com.khnu.yakymchuk.service.ITableService;
@@ -24,10 +25,12 @@ public class MakeOrderCommand implements IActionCommand<OrderRequest> {
         List<Dish> dishes = request.getDishList();
         String displayName = request.getDisplayName();
         String waiterId = request.getWaiterId();
-
-        tableService.makeOrder(tableID, dishes, displayName, waiterId);
-
-        LOG.debug("Make order with parameters {},{}", tableID, dishes);
-        return "You made order for table № : " + tableID;
+        try {
+            tableService.makeOrder(tableID, dishes, displayName, waiterId);
+            LOG.debug("Make order with parameters {},{}", tableID, dishes);
+            return "You made order for table № : " + tableID;
+        }catch (TableNotFoundException e){
+            return e.getMessage();
+        }
     }
 }
