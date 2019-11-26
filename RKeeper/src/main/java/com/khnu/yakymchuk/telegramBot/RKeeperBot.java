@@ -135,19 +135,20 @@ public class RKeeperBot extends TelegramLongPollingBot {
         CallbackQuery callbackQuery = update.getCallbackQuery();
         Message callBackMessage = update.getCallbackQuery().getMessage();
         String callBackData = update.getCallbackQuery().getData();
+        LOG.info("Callback data: {}", callBackData);
 
         if (update.hasCallbackQuery()) {
             SendMessage sendMessage;
+            int messId = callbackQuery.getMessage().getMessageId();
+            long chatId = callbackQuery.getMessage().getChatId();
+
             if ("Cancel".equalsIgnoreCase(callBackData)) {
-                int messId = callbackQuery.getMessage().getMessageId();
-                long chatId = callbackQuery.getMessage().getChatId();
                 sendMessage = new SendMessage(update.getCallbackQuery().getMessage().getChatId(), "You canceled the command");
                 /*
                   Build main menu keyboard depends on current role;
                  */
                 InlineKeyboardMarkup keyboardMarkup = BotUtils.buildMainKeyboard(role);
                 editMessageText = BotUtils.hideLastMessage(chatId, messId, keyboardMarkup, sendMessage.getText());
-                LOG.info("The command was canceled");
             } else {
                 IRequestBuilder requestBuilder = getRequestBuilderByInputParams(update.getCallbackQuery().getData());
                 LOG.debug("Request builder : {}", requestBuilder);
@@ -158,24 +159,11 @@ public class RKeeperBot extends TelegramLongPollingBot {
                 if (callBackData.endsWith("Finish") || (commandName.startsWith("Show"))) {
                     IRequest request = requestBuilder.getRequest(callBackData);
                     sendMessage = new SendMessage(callbackQuery.getMessage().getChatId(), command.execute(request));
-
-                    int messId = update.getCallbackQuery().getMessage().getMessageId();
-                    long chatId = update.getCallbackQuery().getMessage().getChatId();
-                    /**
-                     * Build main menu keyboard depends on current role;
-                     */
                     InlineKeyboardMarkup keyboardMarkup = BotUtils.buildMainKeyboard(role);
                     editMessageText = BotUtils.hideLastMessage(chatId, messId, keyboardMarkup,
                             sendMessage.getText());
-                    LOG.info("Finish building command");
                 } else {
                     sendMessage = new SendMessage(callBackMessage.getChatId(), requestBuilder.getInstructionsToUser(update));
-                    int messId = update.getCallbackQuery().getMessage().getMessageId();
-                    long chatId = update.getCallbackQuery().getMessage().getChatId();
-
-                    /**
-                     * Build keyboard according to current
-                     */
                     InlineKeyboardMarkup keyboardMarkup = BotUtils.buildInlineKeyboard(sendMessage,
                             requestBuilder.getMenuParameters(callBackData), callBackData);
                     editMessageText = BotUtils.hideLastMessage(chatId, messId, keyboardMarkup,
@@ -278,6 +266,5 @@ public class RKeeperBot extends TelegramLongPollingBot {
             throw new RequestBuilderNotFoundException("Incorrect parameters - '" + request + " '");
         }
     }
-
 }
 

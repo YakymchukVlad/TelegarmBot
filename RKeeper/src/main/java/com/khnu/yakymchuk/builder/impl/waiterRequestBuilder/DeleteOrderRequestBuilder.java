@@ -28,7 +28,6 @@ public class DeleteOrderRequestBuilder implements IRequestBuilder<DeleteRequest>
         return constructOrderRequest(deleteRequest, message);
     }
 
-
     private DeleteRequest constructOrderRequest(DeleteRequest orderRequest, String message) {
         String[] paramMass = message.split(" ");
 
