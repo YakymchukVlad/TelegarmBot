@@ -41,10 +41,14 @@ public class MakePaymentRequestBuilder implements IRequestBuilder<PaymentRequest
 
     @Override
     public String getInstructionsToUser(Update update) {
-        if (update.getCallbackQuery().getData().split(" ").length == 1) {
-            return "Choose the table number";
+        if (tableService.getFreeTables().size() != 0) {
+            if (update.getCallbackQuery().getData().split(" ").length == 1) {
+                return "Choose the table number";
+            }
+            return "Press finish to make payment";
+        }else {
+            return "All tables are free, press Finish ore Cancel";
         }
-        return "Press finish to make payment";
     }
 
 }

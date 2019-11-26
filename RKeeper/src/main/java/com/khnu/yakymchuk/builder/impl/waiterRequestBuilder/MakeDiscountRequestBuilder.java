@@ -49,16 +49,20 @@ public class MakeDiscountRequestBuilder implements IRequestBuilder<DiscountReque
 
     @Override
     public String getInstructionsToUser(Update update) {
-        switch (update.getCallbackQuery().getData().split(" ").length) {
-            case 1: {
-                return "Choose the table number";
+        if (tableService.getFreeTables().size() != 0) {
+            switch (update.getCallbackQuery().getData().split(" ").length) {
+                case 1: {
+                    return "Choose the table number";
+                }
+                case 2: {
+                    return "Choose the percent";
+                }
+                default: {
+                    return "Press finish to make discount";
+                }
             }
-            case 2: {
-                return "Choose the percent";
-            }
-            default: {
-                return "Press finish to make discount";
-            }
+        } else {
+            return "There are no taken tables, press Finish or Cancel!";
         }
     }
 

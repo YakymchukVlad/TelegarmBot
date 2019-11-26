@@ -52,16 +52,20 @@ public class DeleteOrderRequestBuilder implements IRequestBuilder<DeleteRequest>
 
     @Override
     public String getInstructionsToUser(Update update) {
-        switch (update.getCallbackQuery().getData().split(" ").length) {
-            case 1: {
-                return "Choose the table number";
+        if (tableService.getFreeTables().size() != 0 ) {
+            switch (update.getCallbackQuery().getData().split(" ").length) {
+                case 1: {
+                    return "Choose the table number";
+                }
+                case 2: {
+                    return "Choose the order to delete";
+                }
+                default: {
+                    return "Press finish to delete order";
+                }
             }
-            case 2: {
-                return "Choose the order to delete";
-            }
-            default: {
-                return "Press finish to delete order";
-            }
+        }else {
+            return "There are no free tables, press Finish or Cancel";
         }
     }
 
