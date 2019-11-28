@@ -28,12 +28,11 @@ public class BarDish extends Dish {
 
     @Override
     public String toString() {
-        return "BarDish{" +
-                "withAlcohol=" + withAlcohol +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", dishType=" + dishType +
-                '}';
+        return "BarDish " +
+                "\n dish № : " + id +
+                "\n Dish name : " + name +
+                "\n With alcohol : " + withAlcohol +
+                "\n Cost : " + cost +
+                "\n";
     }
 }

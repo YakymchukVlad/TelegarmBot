@@ -149,16 +149,12 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "number='" + number + '\'' +
-                ", dishList=" + dishList +
-                ", tableId='" + tableId + '\'' +
-                ", paymentAmount=" + paymentAmount +
-                ", timeBegin=" + timeBegin +
-                ", payed=" + payed +
-                ", displayName='" + displayName + '\'' +
-                ", waiterId='" + waiterId + '\'' +
-                '}';
+        return "Order : "
+                + displayName + "'" +
+                "\nDishes in order : " +
+                "\n" + dishList.stream().map(Dish::getName).collect(Collectors.joining("\n")) +
+                "\nTable № : " + tableId +
+                "\n";
     }
 
     public static Order openOrder(String id, List<Dish> dishList, String tableId, String displayName, String waiterId) {

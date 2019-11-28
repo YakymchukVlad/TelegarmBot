@@ -114,11 +114,9 @@ public class Table {
 
     @Override
     public String toString() {
-        return "Table{" +
-                "number='" + number + '\'' +
-                ", taken=" + taken +
-                ", orders=" + orders +
-                ", ordersCount=" + ordersCount +
-                '}';
+        return "Table : " +
+                "\n Table № : " + number +
+                "\n OrdersCount : " + ordersCount +
+                "\n";
     }
 }

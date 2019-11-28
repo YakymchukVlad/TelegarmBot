@@ -29,12 +29,9 @@ public class KitchenDish extends Dish {
 
     @Override
     public String toString() {
-        return "KitchenDish{" +
-                "timePreparing=" + timePreparing +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", dishType=" + dishType +
-                '}';
+        return "Dish [" + name +
+                "\n № : " + id + ", " +
+                "\n timePreparing = " + timePreparing +
+                "\n cost = " + cost + "] \n";
     }
 }

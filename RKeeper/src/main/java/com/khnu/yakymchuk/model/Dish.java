@@ -21,8 +21,8 @@ import java.math.BigDecimal;
         property = "dt",
         visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = KitchenDish.class, name = "kitchen"),
-        @JsonSubTypes.Type(value = BarDish.class, name = "bar"),
+        @JsonSubTypes.Type(value = KitchenDish.class, name = "KITCHEN"),
+        @JsonSubTypes.Type(value = BarDish.class, name = "BAR"),
 }
 )
 @DynamoDBTable(tableName = "Dishes")
@@ -105,11 +105,11 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                ", dishType=" + dishType +
-                '}';
+        return "Dish " +
+                "\n id : " + id +
+                "\n name : " + name +
+                "\n cost : " + cost +
+                "\n dishType : " + dishType +
+                "\n";
     }
 }

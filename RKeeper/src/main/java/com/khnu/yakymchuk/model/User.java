@@ -70,11 +70,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "telegramUserId='" + telegramUserId + '\'' +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return "User: " + name + " " + lastName + "\n";
     }
 }
