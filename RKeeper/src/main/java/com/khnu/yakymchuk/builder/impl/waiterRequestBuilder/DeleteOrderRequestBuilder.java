@@ -51,7 +51,7 @@ public class DeleteOrderRequestBuilder implements IRequestBuilder<DeleteRequest>
 
     @Override
     public String getInstructionsToUser(Update update) {
-        if (tableService.getFreeTables().size() != 0 ) {
+        if (tableService.getActiveTables().size() != 0 ) {
             switch (update.getCallbackQuery().getData().split(" ").length) {
                 case 1: {
                     return "Choose the table number";

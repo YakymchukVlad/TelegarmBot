@@ -47,7 +47,7 @@ public class MakePaymentRequestBuilder implements IRequestBuilder<PaymentRequest
             }
             return "Press finish to make payment";
         }else {
-            return "All tables are free, press Finish ore Cancel";
+            return "All tables are free, press ore Cancel";
         }
     }
 

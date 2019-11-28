@@ -49,7 +49,7 @@ public class MakeDiscountRequestBuilder implements IRequestBuilder<DiscountReque
 
     @Override
     public String getInstructionsToUser(Update update) {
-        if (tableService.getFreeTables().size() != 0) {
+        if (tableService.getActiveTables().size() != 0) {
             switch (update.getCallbackQuery().getData().split(" ").length) {
                 case 1: {
                     return "Choose the table number";
@@ -62,7 +62,7 @@ public class MakeDiscountRequestBuilder implements IRequestBuilder<DiscountReque
                 }
             }
         } else {
-            return "There are no taken tables, press Finish or Cancel!";
+            return "There are no taken tables, press Cancel!";
         }
     }
 
